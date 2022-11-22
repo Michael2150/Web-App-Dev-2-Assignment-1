@@ -15,7 +15,8 @@
     "react-query": "^3.13.0",
     "react-refresh": "^0.14.0",
     "react-router-dom": "6.3.0",
-    "react-scripts": "5.0.0"
+    "react-scripts": "5.0.0",
+    "readme-md-generator": "^1.0.0"
   },
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public",
