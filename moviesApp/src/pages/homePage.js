@@ -4,10 +4,12 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import { GetAuthenticatedUser } from "../authentication";
 
 const HomePage = (props) => {
-
-  const {  data, error, isLoading, isError }  = useQuery('discover', getMovies)
+  //const { user, authenticated } = GetAuthenticatedUser();
+  
+  const {data, error, isLoading, isError }  = useQuery('discover', getMovies)
 
   if (isLoading) {
     return <Spinner />
