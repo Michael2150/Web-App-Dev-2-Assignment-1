@@ -1,42 +1,25 @@
-import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
-import MenuIcon from "@mui/icons-material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import "./menu.scss"
 
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+const Offset = styled('div')(({ theme, clickHandler}) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   const navigate = useNavigate();
 
   const menuOptions = [
-    { label: "Home", path: "/" },
-    { label: "My list", path: "/mylist" },
-    { label: "Movies", path: "/movies" },
-    { label: "Favourite Movies", path: "/movies/favourites" },
-    { label: "Upcoming Movies", path: "/movies/upcoming" },
+    { label: "Home", paths: [{label:"Home", path:"/"}] },
+    { label: "My list", paths: [{label:"My list", path:"/mylist"}] },
+    { label: "Discover", paths: [{label: "Movies", path:"/movies"}, {label:"Shows", path:"/shows"}] },
+    { label: "Favourites", paths: [{label: "Movies", path:"/movies"}, {label:"Shows", path:"/shows"}] },
+    { label: "Upcoming", paths: [{label: "Movies", path:"/movies"}, {label:"Shows", path:"/shows"}] },
   ];
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
-  };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
   };
 
   return (
@@ -46,59 +29,44 @@ const SiteHeader = ({ history }) => {
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             Michael's Movie App
           </Typography>
-            {isMobile ? (
-              <>
-                <IconButton
-                  aria-label="menu"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={open}
-                  onClose={() => setAnchorEl(null)}
-                >
-                  {menuOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.label}
-                      onClick={() => handleMenuSelect(opt.path)}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </>
-            ) : (
-              <>
-                {menuOptions.map((opt) => (
-                  <Button
-                    key={opt.label}
-                    color="inherit"
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
-                  {opt.label}
-                  </Button>
-                ))}
-              </>
-            )}
+          <SiteMenu menuOptions={menuOptions} clickHandler={handleMenuSelect}></SiteMenu>
         </Toolbar>
       </AppBar>
       <Offset />
     </>
+  );
+};
+
+const SiteMenu = ({menuOptions, clickHandler}) => {
+  return (
+    <nav className="nav">
+      <ul className="nav__menu">
+        {menuOptions.map((menuOption) => {
+          if (menuOption.paths.length === 1) {
+            return (
+              <li className="nav__menu-item" key={menuOption.label}>
+                <button onClick={() => clickHandler(menuOption.paths[0].path)}>{menuOption.label}</button>
+              </li>
+            );
+          } else {
+            return (
+              <li className="nav__menu-item" key={menuOption.label}>
+                <button>{menuOption.label}</button>
+                <ul className="nav__submenu">
+                  {menuOption.paths.map((path) => {
+                    return (
+                      <li className="nav__submenu-item" key={path.label}>
+                        <button onClick={() => clickHandler(path.path)}>{path.label}</button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+            );
+          }
+        })}
+      </ul>
+    </nav>
   );
 };
 
