@@ -21,6 +21,7 @@ function MovieListPageTemplate({ movies, title, action, page }) {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
 
+
   const handleChange = (type, value) => {
     if (type === "name") {
       setNameFilter(value);
@@ -37,6 +38,9 @@ function MovieListPageTemplate({ movies, title, action, page }) {
       <Grid item xs={12}>
         <Header title={title} />
       </Grid>
+      <Grid item xs={12} sx={{ padding: '20px 0' }}>
+        <Pagination className="pagination-bar" currentPage={currentPage} totalCount={200} pageSize={1} onPageChange={new_page => handleChange("page",new_page)}/>
+      </Grid>
       <Grid item container spacing={5}>
         <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
           <FilterCard
@@ -47,14 +51,10 @@ function MovieListPageTemplate({ movies, title, action, page }) {
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>
       </Grid>
+      <Grid item xs={12} sx={{ padding: '20px 0' }}>
+        <Pagination className="pagination-bar" currentPage={currentPage} totalCount={200} pageSize={1} onPageChange={new_page => handleChange("page",new_page)}/>
+      </Grid>
     </Grid>
-    <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={200}
-        pageSize={1}
-        onPageChange={new_page => handleChange("page",new_page)}
-      />
     </>
   );
 }

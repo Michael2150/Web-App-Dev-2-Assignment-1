@@ -1,6 +1,14 @@
 .pagination-container {
+    //Container for the pagination
     display: flex;
     list-style-type: none;
+    //Center the pagination
+    justify-content: center;
+    //Add some space between the pagination
+    margin: 0.5rem 0;
+    //Font type for the pagination
+    font-family: Arial, Helvetica, sans-serif;
+
     
     .pagination-item {
       padding: 0 12px;
