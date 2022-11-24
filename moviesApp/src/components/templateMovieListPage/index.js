@@ -3,11 +3,15 @@ import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
+import Pagination from "../paginator";
+import { useNavigate } from 'react-router-dom';
 
-function MovieListPageTemplate({ movies, title, action }) {
+function MovieListPageTemplate({ movies, title, action, page }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
+  const [currentPage, setCurrentPage] = useState(page ? page : 1);
   const genreId = Number(genreFilter);
+  const navigate = useNavigate();
 
   let displayedMovies = movies
     .filter((m) => {
@@ -18,11 +22,17 @@ function MovieListPageTemplate({ movies, title, action }) {
     });
 
   const handleChange = (type, value) => {
-    if (type === "name") setNameFilter(value);
-    else setGenreFilter(value);
+    if (type === "name") {
+      setNameFilter(value);
+    } else if (type === "genre") {
+      setGenreFilter(value);
+    } else if (type === "page") {
+      navigate('/' + value);
+    }
   };
 
   return (
+    <>
     <Grid container sx={{ padding: '20px' }}>
       <Grid item xs={12}>
         <Header title={title} />
@@ -38,6 +48,14 @@ function MovieListPageTemplate({ movies, title, action }) {
         <MovieList action={action} movies={displayedMovies}></MovieList>
       </Grid>
     </Grid>
+    <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={200}
+        pageSize={1}
+        onPageChange={new_page => handleChange("page",new_page)}
+      />
+    </>
   );
 }
 export default MovieListPageTemplate;

@@ -31,13 +31,14 @@ const App = () => {
       <SiteHeader />
       <MoviesContextProvider>
           <Routes>
+            <Route path="/:page" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/reviews/form" element={<AddMovieReviewPage/>} />
             <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
             <Route exact path="/movies/favourites" element={<FavouriteMoviesPage />} />
             <Route exact path="/movies/upcoming" element={<UpcomingMoviesPage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="*" element={<Navigate to="/1" />} />
           </Routes>
       </MoviesContextProvider>
     </BrowserRouter>

@@ -2,14 +2,14 @@ import React from "react";
 import { getMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 import Spinner from '../components/spinner';
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import { GetAuthenticatedUser } from "../authentication";
 
 const HomePage = (props) => {
-  //const { user, authenticated } = GetAuthenticatedUser();
-  
-  const {data, error, isLoading, isError }  = useQuery('discover', getMovies)
+  const { page } = useParams();
+  const {data, error, isLoading, isError }  = useQuery(["discover", { page: page }], getMovies);
 
   if (isLoading) {
     return <Spinner />
@@ -32,6 +32,7 @@ const HomePage = (props) => {
       action={(movie) => {
         return <AddToFavouritesIcon movie={movie} />
       }}
+      page={Number.parseInt(page, 10)}
     />
   );
 };
