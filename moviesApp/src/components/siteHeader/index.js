@@ -25,8 +25,10 @@ const SiteHeader = ({ history }) => {
 
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Favourites", path: "/movies/favourites" },
-    { label: "Upcoming", path: "/movies/upcoming" },
+    { label: "My list", path: "/mylist" },
+    { label: "Movies", path: "/movies" },
+    { label: "Favourite Movies", path: "/movies/favourites" },
+    { label: "Upcoming Movies", path: "/movies/upcoming" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -42,10 +44,7 @@ const SiteHeader = ({ history }) => {
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            TMDB Client
-          </Typography>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            All you ever wanted to know about Movies!
+            Michael's Movie App
           </Typography>
             {isMobile ? (
               <>
@@ -91,7 +90,7 @@ const SiteHeader = ({ history }) => {
                     color="inherit"
                     onClick={() => handleMenuSelect(opt.path)}
                   >
-                    {opt.label}
+                  {opt.label}
                   </Button>
                 ))}
               </>
