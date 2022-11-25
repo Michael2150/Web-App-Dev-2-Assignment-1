@@ -27,7 +27,7 @@ const SiteHeader = ({ history }) => {
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            Michael's Movie App
+            Movie Catalogue
           </Typography>
           <SiteMenu menuOptions={menuOptions} clickHandler={handleMenuSelect}></SiteMenu>
         </Toolbar>

@@ -28,7 +28,7 @@ function MovieListPageTemplate({ movies, title, action, page }) {
     } else if (type === "genre") {
       setGenreFilter(value);
     } else if (type === "page") {
-      navigate('/' + value);
+      navigate('/movies/' + value);
     }
   };
 

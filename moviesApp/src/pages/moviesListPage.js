@@ -5,9 +5,8 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Spinner from '../components/spinner';
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
-//import { GetAuthenticatedUser } from "../authentication";
 
-const HomePage = (props) => {
+const MoviesListPage = (props) => {
   const { page } = useParams();
   const {data, error, isLoading, isError }  = useQuery(["discover", { page: page }], getMovies);
 
@@ -36,4 +35,4 @@ const HomePage = (props) => {
     />
   );
 };
-export default HomePage;
+export default MoviesListPage;

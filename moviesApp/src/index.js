@@ -4,8 +4,7 @@ import {createRoot} from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
-import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // NEW
-import {Link} from 'react-router-dom'
+import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; 
 import MovieReviewPage from "./pages/movieReviewPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -13,6 +12,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import LoginPage from "./pages/loginPage";
+import MoviesListPage from "./pages/moviesListPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,14 +31,19 @@ const App = () => {
       <SiteHeader />
       <MoviesContextProvider>
           <Routes>
-            <Route path="/:page" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/reviews/form" element={<AddMovieReviewPage/>} />
-            <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
-            <Route exact path="/movies/favourites" element={<FavouriteMoviesPage />} />
-            <Route exact path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-            <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="*" element={<Navigate to="/1" />} />
+            <Route path="/" element={<HomePage/>} />
+            <Route path="/login" element={<LoginPage/>} />
+            {/* Movies Section */}
+            <Route path="/movies/:page" element={<MoviesListPage/>} />
+            <Route path="/movie/:id" element={<MoviePage/>} />
+            <Route exact path="/movies/favourites" element={<FavouriteMoviesPage/>} />
+            <Route exact path="/movies/upcoming" element={<UpcomingMoviesPage/>} />
+            <Route path="movies/reviews/form" element={<AddMovieReviewPage/>} />
+            <Route path="movies/reviews/:id" element={<MovieReviewPage/> } />
+
+            <Route exact path="movies/my-list" element={<HomePage/> } />
+
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
       </MoviesContextProvider>
     </BrowserRouter>
