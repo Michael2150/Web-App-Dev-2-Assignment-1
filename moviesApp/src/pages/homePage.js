@@ -1,38 +1,38 @@
 import React from "react";
 import { getMovies } from "../api/tmdb-api";
-import PageTemplate from '../components/templateMovieListPage';
+import PageTemplate from '../components/templateHomePage';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
 import Spinner from '../components/spinner';
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
-//import { GetAuthenticatedUser } from "../authentication";
 
 const HomePage = (props) => {
-  const { page } = useParams();
-  const {data, error, isLoading, isError }  = useQuery(["discover", { page: page }], getMovies);
+  const {movies_data, movies_error, movies_isLoading, movies_isError }  = useQuery(["home_page_movies"], [getMovies]);
+  const {shows_data, shows_error, shows_isLoading, shows_isError }  = useQuery(["home_page_tv_shows"], [getMovies]);
+  
+  console.log("Movies Data: ", movies_data);
+  console.log("Shows Data: ", shows_data);
 
-  if (isLoading) {
+  if (movies_isLoading || shows_isLoading) {
     return <Spinner />
   }
 
-  if (isError) {
-    return <h1>{error.message}</h1>
+  if (movies_isError || shows_isError) {
+    return <><h1>{movies_error.message}</h1><h1>{shows_error.message}</h1></>
   }  
-  const movies = data.results;
 
-  // Redundant, but necessary to avoid app crashing.
-  const favourites = movies.filter(m => m.favourite)
-  localStorage.setItem('favourites', JSON.stringify(favourites))
-  const addToFavourites = (movieId) => true 
+  const favourite_movies_action = (m) => {
+    
+  };
+
+  const favourite_shows_action = () => {
+    
+  };
 
   return (
     <PageTemplate
-      title="Discover Movies"
-      movies={movies}
-      action={(movie) => {
-        return <AddToFavouritesIcon movie={movie} />
-      }}
-      page={Number.parseInt(page, 10)}
+      title="Dashboard"
+      popular_movies={movies_data.results}
+      popular_shows={shows_data.results}
+      favourite_movies_action
     />
   );
 };

@@ -33,7 +33,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage/>} />
             <Route path="/login" element={<LoginPage/>} />
+            
             {/* Movies Section */}
+            <Route path="/movies" element={<Navigate to="/movies/1" />} />
             <Route path="/movies/:page" element={<MoviesListPage/>} />
             <Route path="/movie/:id" element={<MoviePage/>} />
             <Route exact path="/movies/favourites" element={<FavouriteMoviesPage/>} />

@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Pagination from "../paginator";
 import { useNavigate } from 'react-router-dom';
 
-function MovieListPageTemplate({ movies, title, action, page }) {
+function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [currentPage, setCurrentPage] = useState(page ? page : 1);
@@ -28,6 +28,7 @@ function MovieListPageTemplate({ movies, title, action, page }) {
     } else if (type === "genre") {
       setGenreFilter(value);
     } else if (type === "page") {
+      setCurrentPage(value);
       navigate('/movies/' + value);
     }
   };
@@ -49,7 +50,7 @@ function MovieListPageTemplate({ movies, title, action, page }) {
             genreFilter={genreFilter}
           />
         </Grid>
-        <MovieList action={action} movies={displayedMovies}></MovieList>
+        <MovieList action={favourite_movie_action} movies={displayedMovies}></MovieList>
       </Grid>
       <Grid item xs={12} sx={{ padding: '20px 0' }}>
         <Pagination className="pagination-bar" currentPage={currentPage} totalCount={200} pageSize={1} onPageChange={new_page => handleChange("page",new_page)}/>
