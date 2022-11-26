@@ -1,30 +1,29 @@
 import React from "react";
-import { getMovies } from "../api/tmdb-api";
+import { getPopularMovies, getPopularShows } from "../api/tmdb-api";
 import PageTemplate from '../components/templateHomePage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 
 const HomePage = (props) => {
-  const {movies_data, movies_error, movies_isLoading, movies_isError }  = useQuery(["home_page_movies"], [getMovies]);
-  const {shows_data, shows_error, shows_isLoading, shows_isError }  = useQuery(["home_page_tv_shows"], [getMovies]);
-  
-  console.log("Movies Data: ", movies_data);
-  console.log("Shows Data: ", shows_data);
+  const {data: movies_data, error: movies_error, isLoading: movies_isLoading, isError: movies_isError }  = useQuery(["PopularMovies"], getPopularMovies);
+  const {data: shows_data, error: shows_error, isLoading: shows_isLoading, isError: shows_isError }  = useQuery(["PopularShows"], getPopularShows);
 
   if (movies_isLoading || shows_isLoading) {
     return <Spinner />
   }
-
+  if (!movies_data || !shows_data) {
+    return <Spinner />
+  }
   if (movies_isError || shows_isError) {
     return <><h1>{movies_error.message}</h1><h1>{shows_error.message}</h1></>
   }  
 
   const favourite_movies_action = (m) => {
-    
+    console.log("Favourite Movies Action: ", m);
   };
 
-  const favourite_shows_action = () => {
-    
+  const favourite_shows_action = (s) => {
+    console.log("Favourite Shows Action: ", s);
   };
 
   return (
@@ -32,7 +31,8 @@ const HomePage = (props) => {
       title="Dashboard"
       popular_movies={movies_data.results}
       popular_shows={shows_data.results}
-      favourite_movies_action
+      favourite_movies_action={favourite_movies_action}
+      favourite_shows_action={favourite_shows_action}
     />
   );
 };

@@ -4,8 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import HorzView from "../horzScrollView";
+import MovieCard from "../movieCard";
 
-function HomePageTemplate({title, popular_movies, popular_shows}) {
+function HomePageTemplate({title, 
+                          popular_movies, 
+                          popular_shows, 
+                          favourite_movies_action, 
+                          favourite_shows_action}) {
+
   const navigate = useNavigate();
 
   const Heading = (text, link) => (
@@ -38,11 +44,10 @@ function HomePageTemplate({title, popular_movies, popular_shows}) {
         </Grid>
       </Grid>
       {Heading("Popular Movies", "/movies")}
-      <HorzView/>
+      <HorzView movies={popular_movies} action={favourite_movies_action}/>
       <br/>
       {Heading("Popular TV-Shows", "/shows")}
-      <HorzView/>
-      <br/>
+      <HorzView movies={popular_shows} action={favourite_shows_action}/>
       <br/>
       <br/>
     </>
