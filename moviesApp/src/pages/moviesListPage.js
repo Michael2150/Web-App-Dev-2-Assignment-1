@@ -1,6 +1,6 @@
 import React from "react";
 import { getMovies } from "../api/tmdb-api";
-import PageTemplate from '../components/templateMovieListPage';
+import PageTemplate from '../components/movies/templateMovieListPage';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Spinner from '../components/spinner';

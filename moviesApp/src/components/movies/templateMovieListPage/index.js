@@ -3,10 +3,10 @@ import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
-import Pagination from "../paginator";
+import Pagination from "../../paginator";
 import { useNavigate } from 'react-router-dom';
 
-function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page }) {
+function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page}) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [currentPage, setCurrentPage] = useState(Number(page));

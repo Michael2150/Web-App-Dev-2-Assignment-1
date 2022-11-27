@@ -1,4 +1,4 @@
-import MovieCard from "../movieCard";
+import MovieCard from "../movies/movieCard";
 import "./horzScrollStyle.scss";
   
 const HorzView = ({movies, action}) => {

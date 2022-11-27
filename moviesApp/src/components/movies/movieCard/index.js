@@ -11,9 +11,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import img from '../../images/film-poster-placeholder.png'
+import img from '../../../images/film-poster-placeholder.png'
 import Avatar from '@mui/material/Avatar';
-import { MoviesContext } from "../../contexts/moviesContext";
+import { MoviesContext } from "../../../contexts/moviesContext";
 
 export default function MovieCard({ movie, action }) {
   const { favourites, addToFavourites } = useContext(MoviesContext);

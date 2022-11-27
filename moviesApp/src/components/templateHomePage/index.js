@@ -1,10 +1,10 @@
-import Header from "../headerMovieList";
+import Header from "../movies/headerMovieList";
 import Grid from "@mui/material/Grid";
 import { Link, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import HorzView from "../horzScrollView";
-import MovieCard from "../movieCard";
+import MovieCard from "../movies/movieCard";
 
 function HomePageTemplate({title, 
                           popular_movies, 
