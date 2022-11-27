@@ -8,7 +8,7 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 
 const MoviesListPage = (props) => {
   const { page } = useParams();
-  const {data, error, isLoading, isError }  = useQuery(["movies", { page: page }], getMovies);
+  const {data, error, isLoading, isError }  = useQuery(["movies", page], getMovies);
 
   if (isLoading) {
     return <Spinner />
@@ -31,7 +31,7 @@ const MoviesListPage = (props) => {
       action={(movie) => {
         return <AddToFavouritesIcon movie={movie} />
       }}
-      page={Number.parseInt(page, 1)}
+      page={page}
     />
   );
 };

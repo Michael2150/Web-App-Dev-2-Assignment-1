@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
-  const [currentPage, setCurrentPage] = useState(page ? page : 1);
+  const [currentPage, setCurrentPage] = useState(Number(page));
   const genreId = Number(genreFilter);
   const navigate = useNavigate();
 

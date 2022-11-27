@@ -1,7 +1,8 @@
 export const getMovies = (args) => {
+  console.log(args);
   const [, pagePart] = args.queryKey;
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagePart.page}`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagePart}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
