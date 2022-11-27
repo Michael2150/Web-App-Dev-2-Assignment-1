@@ -18,12 +18,12 @@ const HomePage = (props) => {
     return <><h1>{movies_error.message}</h1><h1>{shows_error.message}</h1></>
   }  
 
-  const favourite_movies_action = (m) => {
-    console.log("Favourite Movies Action: ", m);
+  const movies_action = (m) => {
+    
   };
 
-  const favourite_shows_action = (s) => {
-    console.log("Favourite Shows Action: ", s);
+  const shows_action = (s) => {
+    
   };
 
   return (
@@ -31,8 +31,8 @@ const HomePage = (props) => {
       title="Dashboard"
       popular_movies={movies_data.results}
       popular_shows={shows_data.results}
-      favourite_movies_action={favourite_movies_action}
-      favourite_shows_action={favourite_shows_action}
+      movies_action={movies_action}
+      shows_action={shows_action}
     />
   );
 };

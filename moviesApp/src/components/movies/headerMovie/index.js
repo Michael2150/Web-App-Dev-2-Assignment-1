@@ -30,10 +30,6 @@ const MovieHeader = (props) => {
             margin: 0,
         }}
       >
-      <IconButton aria-label="go back" onClick={() => navigate(-1)} >
-        <ArrowBackIcon color="primary" fontSize="large" />
-      </IconButton>
-
       {
         fav ? <Avatar sx={{ backgroundColor: 'red' }}>
         <FavoriteIcon />
@@ -48,10 +44,6 @@ const MovieHeader = (props) => {
         <br />
         <span sx={{ fontSize: "1.5rem" }}>{`   "${movie.tagline}"`} </span>
       </Typography>
-
-      <IconButton aria-label="go forward" onClick={() => navigate(+1) } >
-        <ArrowForwardIcon color="primary" fontSize="large" />
-      </IconButton>
     </Paper>
   );
 };

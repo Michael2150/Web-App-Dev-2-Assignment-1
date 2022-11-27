@@ -9,8 +9,8 @@ import MovieCard from "../movies/movieCard";
 function HomePageTemplate({title, 
                           popular_movies, 
                           popular_shows, 
-                          favourite_movies_action, 
-                          favourite_shows_action}) {
+                          movies_action, 
+                          shows_action}) {
 
   const navigate = useNavigate();
 
@@ -44,10 +44,10 @@ function HomePageTemplate({title,
         </Grid>
       </Grid>
       {Heading("Popular Movies", "/movies")}
-      <HorzView movies={popular_movies} action={favourite_movies_action}/>
+      <HorzView movies={popular_movies} action={movies_action}/>
       <br/>
       {Heading("Popular TV-Shows", "/shows")}
-      <HorzView movies={popular_shows} action={favourite_shows_action}/>
+      <HorzView movies={popular_shows} action={shows_action}/>
       <br/>
       <br/>
     </>
