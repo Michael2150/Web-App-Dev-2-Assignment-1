@@ -1,31 +1,79 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/authContext";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthPage({ isLogin }) {
     const [errorMessages, setErrorMessages] = useState({});
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { login, signup } = useAuth();
+    const navigate = useNavigate();
 
     const errors = {
-        uname: "Invalid username",
-        pass: "Invalid password",
-        confpass: "Password does not match"
+        email: "Invalid email address",
+        email_in_use: "Email already in use",
+        user_not_found: "User not found, please sign up",
+        uname_password: "Invalid email or password",
+        weak_pass: "Password must be at least 6 characters",
+        confpass: "Password does not match",
+        unknown: "Unknown error",
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        var { uname, pass } = document.forms[0];
 
-        const userData = {}//database.find((user) => user.username === uname.value);
-        if (userData) {
-          if (userData.password !== pass.value) {
-            setErrorMessages({ name: "pass", message: errors.pass });
-          } else {
-            setIsSubmitted(true);
-          }
+        if (isLogin) {
+            const uname = event.target.uname.value;
+            const pass = event.target.pass.value;
+            login(uname, pass).then((result) => {
+                navigate("/");
+            }).catch((error) => {
+                if (error.code === "auth/user-not-found") {
+                    setErrorMessages({ name: "pass", message: errors.user_not_found });
+                } else if (error.code === "auth/wrong-password") {
+                    setErrorMessages({ name: "pass", message: errors.uname_password });
+                } else if (error.code === "auth/invalid-email") {
+                    setErrorMessages({ name: "uname", message: errors.email });
+                } else {
+                    setErrorMessages({ name: "pass", message: errors.unknown });
+                }
+            });
+
         } else {
-          setErrorMessages({ name: "uname", message: errors.uname });
+            const uname = event.target.uname.value;
+            const pass = event.target.pass.value;
+            const confpass = event.target.confpass.value;
+            if (pass !== confpass) {
+              setErrorMessages({ name: "confpass", message: errors.confpass });
+            } else {
+              signup(uname, pass).then((result) => {
+                navigate("/");
+              }).catch((error) => {
+                  if (error.code === "auth/email-already-in-use") {
+                      setErrorMessages({ name: "uname", message: errors.email_in_use });
+                  } else if (error.code === "auth/weak-password") {
+                      setErrorMessages({ name: "pass", message: errors.weak_pass });
+                  } else if (error.code === "auth/invalid-email") {
+                      setErrorMessages({ name: "uname", message: errors.email });
+                  } else {
+                      setErrorMessages({ name: "pass", message: errors.unknown });
+                  }
+              });
+            }
         }
+
+        // const userData = {}
+        // if (userData) {
+        //   if (userData.password !== pass.value) {
+        //     setErrorMessages({ name: "pass", message: errors.pass });
+        //   } else {
+        //     setIsSubmitted(true);
+        //   }
+        // } else {
+        //   setErrorMessages({ name: "uname", message: errors.uname });
+        // }
       };
     
       const renderErrorMessage = (name) =>
@@ -37,7 +85,7 @@ export default function AuthPage({ isLogin }) {
         <div className="form">
           <form onSubmit={handleSubmit}>
             <div className="input-container">
-              <label>Username* </label>
+              <label>Email* </label>
               <input type="text" name="uname" required />
               {renderErrorMessage("uname")}
             </div>
