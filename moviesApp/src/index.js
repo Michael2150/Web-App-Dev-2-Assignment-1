@@ -14,6 +14,7 @@ import LoginPage from "./pages/loginPage";
 import MoviesListPage from "./pages/moviesListPage";
 import PrivateRoute from './privateRoute'
 import Contexts from "./contexts/contextWrapper";
+import SignupPage from "./pages/signupPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,11 +30,12 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <SiteHeader />
       <Contexts>
+          <SiteHeader />
           <Routes>
-            <Route path="/" element={<PrivateRoute><HomePage/></PrivateRoute>} />
+            <Route path="/" element={<PrivateRoute> <HomePage/> </PrivateRoute>} />
             <Route path="/login" element={<LoginPage/>} />
+            <Route path="/sign-up" element={<SignupPage/>} />
             
             {/* Movies Section */}
             <Route path="/movies" element={<PrivateRoute> <Navigate to="/movies/1" /> </PrivateRoute>} />

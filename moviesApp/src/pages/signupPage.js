@@ -1,11 +1,11 @@
 import React from "react";
 import Login from "../components/templateAuthPage"; 
 
-const LoginPage = (props) => {
+const SignupPage = (props) => {
   return (
     <>
-      <Login isLogin={true}/>
+      <Login isLogin={false}/>
     </>
   );
 };
-export default LoginPage;
+export default SignupPage;

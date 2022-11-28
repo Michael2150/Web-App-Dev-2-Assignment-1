@@ -4,18 +4,21 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import "./menu.scss"
+import { useAuth } from "../../contexts/authContext";
 
 const Offset = styled('div')(({ theme, clickHandler}) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
   const navigate = useNavigate();
 
-  const menuOptions = [
+  const { currentUser } = useAuth()
+
+  const menuOptions = (currentUser) ? [
     { label: "Home", paths: [{label:"Home", path:"/"}] },
     { label: "Discover", paths: [{label: "Movies", path:"/movies"}, {label:"Shows", path:"/shows"}] },
     { label: "Favourites", paths: [{label: "Movies", path:"/movies/favourites"}, {label:"Shows", path:"/shows"}] },
     { label: "Upcoming", paths: [{label: "Movies", path:"/movies/upcoming/1"}, {label:"Shows", path:"/shows"}] },
-  ];
+  ] : [];
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });

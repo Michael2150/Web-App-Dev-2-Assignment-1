@@ -1,5 +1,5 @@
-import { AuthProvider } from "./authContext"
-import { MoviesContextProvider } from "./moviesContext"
+import AuthProvider from "./authContext"
+import MoviesContextProvider from "./moviesContext"
 
 export default function Contexts ({ children }) {
     return (
