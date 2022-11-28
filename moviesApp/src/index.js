@@ -9,10 +9,11 @@ import MovieReviewPage from "./pages/movieReviewPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
-import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import LoginPage from "./pages/loginPage";
 import MoviesListPage from "./pages/moviesListPage";
+import PrivateRoute from './privateRoute'
+import Contexts from "./contexts/contextWrapper";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,26 +30,24 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <SiteHeader />
-      <MoviesContextProvider>
+      <Contexts>
           <Routes>
-            <Route path="/" element={<HomePage/>} />
+            <Route path="/" element={<PrivateRoute><HomePage/></PrivateRoute>} />
             <Route path="/login" element={<LoginPage/>} />
             
             {/* Movies Section */}
-            <Route path="/movies" element={<Navigate to="/movies/1" />} />
-            <Route path="/movies/:page" element={<MoviesListPage/>} />
-            <Route path="/movie/:id" element={<MoviePage/>} />
-            <Route exact path="/movies/favourites" element={<FavouriteMoviesPage/>} />
-            <Route path="/movies/upcoming" element={<Navigate to="movies/upcoming/1" />} />
-            <Route path="/movies/upcoming/:page" element={<UpcomingMoviesPage/>} />
-            <Route path="movies/reviews/form" element={<AddMovieReviewPage/>} />
-            <Route path="movies/reviews/:id" element={<MovieReviewPage/> } />
-
-            <Route exact path="movies/my-list" element={<HomePage/> } />
+            <Route path="/movies" element={<PrivateRoute> <Navigate to="/movies/1" /> </PrivateRoute>} />
+            <Route path="/movies/:page" element={<PrivateRoute> <MoviesListPage/> </PrivateRoute>} />
+            <Route path="/movie/:id" element={<PrivateRoute> <MoviePage/> </PrivateRoute>} />
+            <Route exact path="/movies/favourites" element={<PrivateRoute> <FavouriteMoviesPage/> </PrivateRoute>} />
+            <Route path="/movies/upcoming" element={<PrivateRoute> <Navigate to="movies/upcoming/1" /> </PrivateRoute>} />
+            <Route path="/movies/upcoming/:page" element={<PrivateRoute> <UpcomingMoviesPage/> </PrivateRoute>} />
+            <Route path="movies/reviews/form" element={<PrivateRoute> <AddMovieReviewPage/> </PrivateRoute>} />
+            <Route path="movies/reviews/:id" element={<PrivateRoute> <MovieReviewPage/> </PrivateRoute>} />
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
-      </MoviesContextProvider>
+      </Contexts>
     </BrowserRouter>
     <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
