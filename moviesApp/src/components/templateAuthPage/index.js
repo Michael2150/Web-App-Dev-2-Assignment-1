@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 
 export default function AuthPage({ isLogin }) {
+    const emailRef = useRef();
     const [errorMessages, setErrorMessages] = useState({});
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login, signup } = useAuth();
+    const { login, signup, resetPassword } = useAuth();
     const navigate = useNavigate();
 
     const errors = {
@@ -63,17 +64,26 @@ export default function AuthPage({ isLogin }) {
               });
             }
         }
+      };
 
-        // const userData = {}
-        // if (userData) {
-        //   if (userData.password !== pass.value) {
-        //     setErrorMessages({ name: "pass", message: errors.pass });
-        //   } else {
-        //     setIsSubmitted(true);
-        //   }
-        // } else {
-        //   setErrorMessages({ name: "uname", message: errors.uname });
-        // }
+      const handleResetPassword = (event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        if (email === "") {
+          setErrorMessages({ name: "uname", message: errors.email });
+        } else {
+          resetPassword(email).then((result) => {
+            setErrorMessages({ name: "forgot_password", message: "Password reset email sent, check your emails" });
+          }).catch((error) => {
+              if (error.code === "auth/user-not-found") {
+                  setErrorMessages({ name: "uname", message: errors.user_not_found });
+              } else if (error.code === "auth/invalid-email") {
+                  setErrorMessages({ name: "uname", message: errors.email });
+              } else {
+                  setErrorMessages({ name: "uname", message: errors.unknown });
+              }
+          });
+        }
       };
     
       const renderErrorMessage = (name) =>
@@ -86,7 +96,7 @@ export default function AuthPage({ isLogin }) {
           <form onSubmit={handleSubmit}>
             <div className="input-container">
               <label>Email* </label>
-              <input type="text" name="uname" required />
+              <input type="text" name="uname" ref={emailRef} required />
               {renderErrorMessage("uname")}
             </div>
             <div className="input-container">
@@ -103,8 +113,12 @@ export default function AuthPage({ isLogin }) {
                 {isLogin ? "Don't have an account? " : "Already have an account? "}
                 <Link to={isLogin ? "/sign-up" : "/login"}>{isLogin ? "Sign Up" : "Login"}</Link>
             </div>
+            <div>
+                {isLogin ? <a href="#forgot_password"><span onClick={handleResetPassword}>Forgot password?</span></a> : null}
+                {renderErrorMessage("forgot_password")}
+            </div>
             <div className="button-container">
-              <input type="submit" />
+              <input type="submit" value={isLogin?"Login":"Sign up"}/>
             </div>
           </form>
         </div>

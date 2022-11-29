@@ -15,6 +15,8 @@ import MoviesListPage from "./pages/moviesListPage";
 import PrivateRoute from './privateRoute'
 import Contexts from "./contexts/contextWrapper";
 import SignupPage from "./pages/signupPage";
+import AccountPage from "./pages/accountDetailsPage";
+import LogoutPage from "./pages/logoutPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +38,8 @@ const App = () => {
             <Route path="/" element={<PrivateRoute> <HomePage/> </PrivateRoute>} />
             <Route path="/login" element={<LoginPage/>} />
             <Route path="/sign-up" element={<SignupPage/>} />
+            <Route path="/account" element={<PrivateRoute> <AccountPage/> </PrivateRoute>} />
+            <Route path="/logout" element={<PrivateRoute> <LogoutPage/> </PrivateRoute>} />
             
             {/* Movies Section */}
             <Route path="/movies" element={<PrivateRoute> <Navigate to="/movies/1" /> </PrivateRoute>} />

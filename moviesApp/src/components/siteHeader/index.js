@@ -18,6 +18,7 @@ const SiteHeader = ({ history }) => {
     { label: "Discover", paths: [{label: "Movies", path:"/movies"}, {label:"Shows", path:"/shows"}] },
     { label: "Favourites", paths: [{label: "Movies", path:"/movies/favourites"}, {label:"Shows", path:"/shows"}] },
     { label: "Upcoming", paths: [{label: "Movies", path:"/movies/upcoming/1"}, {label:"Shows", path:"/shows"}] },
+    { label: "Account", paths: [{label:"Details", path:"/account"}, {label: "Log out", path:"/logout"}] },
   ] : [];
 
   const handleMenuSelect = (pageURL) => {
@@ -44,7 +45,9 @@ const SiteMenu = ({menuOptions, clickHandler}) => {
     <nav className="nav">
       <ul className="nav__menu">
         {menuOptions.map((menuOption) => {
-          if (menuOption.paths.length === 1) {
+          if (menuOption.paths.length === 0) {
+            return null;
+          } else if (menuOption.paths.length === 1) {
             return (
               <li className="nav__menu-item" key={menuOption.label}>
                 <button onClick={() => clickHandler(menuOption.paths[0].path)}>{menuOption.label}</button>
