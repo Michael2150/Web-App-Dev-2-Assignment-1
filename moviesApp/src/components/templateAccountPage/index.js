@@ -1,16 +1,33 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 import "../templateAuthPage/login.css";
+import { getUserSettings, setUserSettings } from "../../Database/dataAccess";
+import { useQuery } from "react-query";
+import Spinner from '../spinner';
+
 
 export default function AccountPageTemplate() {
     const { currentUser } = useAuth();
-    const email = currentUser.email;
+    //Make sure the data is retrieved before rendering the page
+    const {data: user_settings, error, isLoading, isError }  = useQuery(["user_settings", currentUser.uid], getUserSettings, {cacheTime: 0, staletime: 0});
+    
+    if (isLoading) {
+        return <>
+        <br/><br/><br/><Spinner />
+        </>
+    }
+    
+    if (isError) {
+        return <><br/><br/><br/><h1>{error.message}</h1></>
+    }  
 
-    const handleSubmit = () => {
-        
+    function handleSubmit(event) {
+        event.preventDefault();
+        const premium = document.getElementById("premium").checked;
+        console.log(premium);
+        setUserSettings({user_settings: user_settings, premium_enabled: premium});
     };
 
+    console.log(user_settings);
     return (
         <div className="app">
           <div className="login-form">
@@ -18,11 +35,13 @@ export default function AccountPageTemplate() {
                 <div className="login">
                     <div className="login__container">
                         <h1>Account Details</h1>
-                        <h5>Email: {email}</h5>
+                        <h5>Email: {currentUser.email}</h5>
                         <form onSubmit={handleSubmit}>
                             <h3>Enable premium features</h3>
-                            <input type="checkbox" id="premium" name="premium"/>
-                            <label for="premium"> Enabled</label>
+                            {user_settings.premium_enabled ? 
+                                <input type="checkbox" id="premium" name="premium" defaultChecked/> : 
+                                <input type="checkbox" id="premium" name="premium"/>}
+                            <label htmlFor="premium"> Enabled</label>
                             <div className="button-container">
                               <input type="submit" value="Save"/>
                             </div>
@@ -31,6 +50,5 @@ export default function AccountPageTemplate() {
                 </div>
             </div>
           </div>
-
     );
 }

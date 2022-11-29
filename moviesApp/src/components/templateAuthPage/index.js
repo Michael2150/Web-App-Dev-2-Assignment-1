@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
-import { useDatabase } from "../../contexts/databaseContext";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +10,6 @@ export default function AuthPage({ isLogin }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login, signup, resetPassword } = useAuth();
-    const {addUserSettingsToDatabase} = useDatabase();
     const navigate = useNavigate();
 
     const errors = {
@@ -26,7 +24,6 @@ export default function AuthPage({ isLogin }) {
 
     const onUserSignedUp = (user) => {
         console.log("User signed up: ", user);
-        addUserSettingsToDatabase(user);
         navigate("/dashboard");
     };
 

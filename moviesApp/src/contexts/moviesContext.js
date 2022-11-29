@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDatabase } from "./databaseContext";
 
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
-  const { getUserSettingsFromDatabase, updateUserSettingsInDatabase } = useDatabase();
   const [myReviews, setMyReviews] = useState( {} ) 
-  const [favouriteMovies, setFavouriteMovies] = useState( getUserSettingsFromDatabase().favourite_movies )
-  const [favouriteShows, setFavouriteShows] = useState( getUserSettingsFromDatabase().favourite_shows )
-  const [mustWatch, setMustWatch] = useState( getUserSettingsFromDatabase().must_watch )
+  const [favouriteMovies, setFavouriteMovies] = useState( [] )
+  const [favouriteShows, setFavouriteShows] = useState( [] )
+  const [mustWatch, setMustWatch] = useState( [] )
 
   const addMovieToFavourites = (movie) => {
     let newFavourites = [...favouriteMovies];
@@ -56,13 +54,13 @@ const MoviesContextProvider = (props) => {
     ) )
   };
 
-  useEffect(() => {
-    updateUserSettingsInDatabase({
-      favourite_movies: favouriteMovies,
-      favourite_shows: favouriteShows,
-      must_watch: mustWatch,
-    })
-  }, [favouriteMovies, favouriteShows, mustWatch, updateUserSettingsInDatabase])
+  // useEffect(() => {
+  //   updateUserSettingsInDatabase({
+  //     favourite_movies: favouriteMovies,
+  //     favourite_shows: favouriteShows,
+  //     must_watch: mustWatch,
+  //   })
+  // }, [favouriteMovies, favouriteShows, mustWatch, updateUserSettingsInDatabase])
 
   return (
     <MoviesContext.Provider
