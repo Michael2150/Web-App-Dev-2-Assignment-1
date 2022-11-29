@@ -1,23 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDatabase } from "./databaseContext";
 
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
+  const { getUserSettingsFromDatabase, updateUserSettingsInDatabase } = useDatabase();
   const [myReviews, setMyReviews] = useState( {} ) 
-  const [favourites, setFavourites] = useState( [] )
-  const [mustWatch, setMustWatch] = useState( [] )
+  const [favouriteMovies, setFavouriteMovies] = useState( getUserSettingsFromDatabase().favourite_movies )
+  const [favouriteShows, setFavouriteShows] = useState( getUserSettingsFromDatabase().favourite_shows )
+  const [mustWatch, setMustWatch] = useState( getUserSettingsFromDatabase().must_watch )
 
-  const addToFavourites = (movie) => {
-    let newFavourites = [...favourites];
-    if (!favourites.includes(movie.id)) {
+  const addMovieToFavourites = (movie) => {
+    let newFavourites = [...favouriteMovies];
+    if (!favouriteMovies.includes(movie.id)) {
       newFavourites.push(movie.id);
     }
-    setFavourites(newFavourites);
+    setFavouriteMovies(newFavourites);
   };
 
-  const removeFromFavourites = (movie) => {
-    setFavourites( favourites.filter(
+  const removeMovieFromFavourites = (movie) => {
+    setFavouriteMovies( favouriteMovies.filter(
       (mId) => mId !== movie.id
+    ))
+  };
+
+  const addShowToFavourites = (show) => {
+    let newFavourites = [...favouriteShows];
+    if (!favouriteShows.includes(show.id)) {
+      newFavourites.push(show.id);
+    }
+    setFavouriteShows(newFavourites);
+  };
+
+  const removeShowFromFavourites = (show) => {
+    setFavouriteShows( favouriteShows.filter(
+      (sId) => sId !== show.id
     ))
   };
 
@@ -33,21 +50,32 @@ const MoviesContextProvider = (props) => {
     setMustWatch(newMustWatch);
   };
 
-  // We will use this function in a later section
   const removeFromMustWatch = (movie) => {
     setMustWatch( mustWatch.filter(
       (mId) => mId !== movie.id
     ) )
   };
 
+  useEffect(() => {
+    updateUserSettingsInDatabase({
+      favourite_movies: favouriteMovies,
+      favourite_shows: favouriteShows,
+      must_watch: mustWatch,
+    })
+  }, [favouriteMovies, favouriteShows, mustWatch, updateUserSettingsInDatabase])
+
   return (
     <MoviesContext.Provider
       value={{
-        favourites,
-        addToFavourites,
-        removeFromFavourites,
+        favourites: favouriteMovies,
+        addToFavourites: addMovieToFavourites,
+        removeFromFavourites: removeMovieFromFavourites,
+        shows: favouriteShows,
+        addShowToFavourites,
+        removeShowFromFavourites,
+        reviews: myReviews,
         addReview,
-        mustWatch,
+        mustWatch: mustWatch,
         addToMustWatch,
         removeFromMustWatch,
       }}
