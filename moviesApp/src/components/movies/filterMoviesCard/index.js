@@ -36,6 +36,20 @@ export default function FilterMoviesCard(props) {
     genres.unshift({ id: "0", name: "All" });
   }
 
+  const sortDirection = [
+    { id: "asc", name: "Ascending" },
+    { id: "desc", name: "Descending" },
+  ];
+  const sortBy = [
+    "Default",
+    "Popularity", 
+    "Release date",
+    "Revenue",
+    "Primary release date",
+    "Vote average",
+    "Vote count",
+  ]
+
   const handleChange = (e, type, value) => {
     e.preventDefault();
     props.onUserInput(type, value); // NEW
@@ -47,6 +61,14 @@ export default function FilterMoviesCard(props) {
 
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
+  };
+
+  const handleSortByChange = (e) => {
+    handleChange(e, "sortBy", e.target.value);
+  };
+
+  const handleSortDirectionChange = (e) => {
+    handleChange(e, "sortDirection", e.target.value);
   };
 
   return (
@@ -90,18 +112,42 @@ export default function FilterMoviesCard(props) {
             })}
           </Select>
         </FormControl>
-      </CardContent>
-      <CardMedia
-        sx={{ height: 300 }}
-        image={img}
-        title="Filter"
-      />
-      <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
-          Filter the movies.
-          <br />
-        </Typography>
+
+        <FormControl sx={formControl}>
+          <InputLabel style={
+            {margin: -7}
+          } id="sort-by-label">Sort By</InputLabel>
+          <Select
+            labelId="sort-by-label"
+            id="sort-by-select"
+            defaultValue="default"
+            value={props.sortByFilter}
+            onChange={handleSortByChange}
+          >
+            {sortBy.map((sort) => {
+              return (
+                <MenuItem key={sort} value={sort.toLowerCase().replace(" ","_")}>
+                  {sort}
+                </MenuItem>
+              );
+            })}
+          </Select>
+          <Select
+            labelId="sort-direction-label"
+            id="sort-direction-select"
+            defaultValue="asc"
+            value={props.sortDirectionFilter}
+            onChange={handleSortDirectionChange}
+          >
+            {sortDirection.map((sort) => {
+              return (
+                <MenuItem key={sort.id} value={sort.id}>
+                  {sort.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
       </CardContent>
     </Card>
   );

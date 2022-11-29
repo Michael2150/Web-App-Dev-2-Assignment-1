@@ -4,24 +4,14 @@ import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
 import Pagination from "../../paginator";
-import { useNavigate } from 'react-router-dom';
 
 function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page_data}) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
-  //Only set up if page data exists
+  const [sortByFilter, setSortByFilter] = useState("default");
+  const [sortDirectionFilter, setSortDirectionFilter] = useState("asc");
   const [currentPage, setCurrentPage] = useState(page_data ? Number(page_data.page) : 1);
   const genreId = Number(genreFilter);
-  const navigate = useNavigate();
-
-  let displayedMovies = movies
-    .filter((m) => {
-      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
-    })
-    .filter((m) => {
-      return genreId > 0 ? m.genre_ids.includes(genreId) : true;
-    });
-
 
   const handleChange = (type, value) => {
     if (type === "name") {
@@ -31,6 +21,10 @@ function MovieListPageTemplate({ movies, title, action: favourite_movie_action, 
     } else if (type === "page") {
       setCurrentPage(value);
       page_data.onPageChange(value);
+    } else if (type === "sortBy") {
+      setSortByFilter(value);
+    } else if (type === "sortDirection") {
+      setSortDirectionFilter(value);
     }
   };
 
@@ -52,9 +46,11 @@ function MovieListPageTemplate({ movies, title, action: favourite_movie_action, 
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
+            sortByFilter={sortByFilter}
+            sortDirectionFilter={sortDirectionFilter}
           />
         </Grid>
-        <MovieList action={favourite_movie_action} movies={displayedMovies}></MovieList>
+        <MovieList action={favourite_movie_action} movies={movies}></MovieList>
       </Grid>
       {
         page_data &&
