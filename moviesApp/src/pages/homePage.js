@@ -8,7 +8,6 @@ import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
 import { MoviesContext } from "../contexts/moviesContext";
 
-
 const HomePage = (props) => {
   const {favourites: movieIds } = useContext(MoviesContext);
   const {data: movies_data, error: movies_error, isLoading: movies_isLoading, isError: movies_isError }  = useQuery(["PopularMovies"], getPopularMovies);

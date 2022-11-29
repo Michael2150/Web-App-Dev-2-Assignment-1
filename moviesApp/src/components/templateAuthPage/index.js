@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
+import { useDatabase } from "../../contexts/databaseContext";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +11,7 @@ export default function AuthPage({ isLogin }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login, signup, resetPassword } = useAuth();
+    const {addUserSettingsToDatabase} = useDatabase();
     const navigate = useNavigate();
 
     const errors = {
@@ -20,6 +22,12 @@ export default function AuthPage({ isLogin }) {
         weak_pass: "Password must be at least 6 characters",
         confpass: "Password does not match",
         unknown: "Unknown error",
+    };
+
+    const onUserSignedUp = (user) => {
+        console.log("User signed up: ", user);
+        addUserSettingsToDatabase(user);
+        navigate("/dashboard");
     };
 
     const handleSubmit = (event) => {
@@ -50,7 +58,7 @@ export default function AuthPage({ isLogin }) {
               setErrorMessages({ name: "confpass", message: errors.confpass });
             } else {
               signup(uname, pass).then((result) => {
-                navigate("/");
+                onUserSignedUp(result.user);
               }).catch((error) => {
                   if (error.code === "auth/email-already-in-use") {
                       setErrorMessages({ name: "uname", message: errors.email_in_use });

@@ -35,16 +35,14 @@ export default function AuthProvider({ children }) {
         })
     }, [])
 
-    const value = { 
-        currentUser,
-        signup,
-        login,
-        logout,
-        resetPassword
-    }
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{
+      currentUser,
+      signup,
+      login,
+      logout,
+      resetPassword,
+    }}>
       {!loading && children}
     </AuthContext.Provider>
   )
