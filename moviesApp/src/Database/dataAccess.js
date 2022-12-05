@@ -33,12 +33,13 @@ export function getUserSettings(args){
 export function setUserSettings({ user_settings, favourite_movies, favourite_shows, must_watch, premium_enabled }){
     try {
         if (user_settings){
+            console.log(premium_enabled);
             const updated_user = {
                 user_id : user_settings.user_id,
                 favourite_movies: favourite_movies? favourite_movies: user_settings.favourite_movies,
                 favourite_shows: favourite_shows? favourite_shows: user_settings.favourite_shows,
                 must_watch: must_watch? must_watch: user_settings.must_watch,
-                premium_enabled: (typeof premium_enabled !== "undefined")? premium_enabled: user_settings.premium_enabled,
+                premium_enabled: (typeof premium_enabled !== "undefined") ? premium_enabled: user_settings.premium_enabled,
             }
             const docRef = doc(db, "user_settings", user_settings.user_id);
             setDoc(docRef, updated_user).then(() => {

@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import "./menu.scss"
 import { useAuth } from "../../contexts/authContext";
+import { useQuery } from "react-query";
+import { getUserSettings } from "../../database/dataAccess";
+import Spinner from '../spinner';
+
 
 const Offset = styled('div')(({ theme, clickHandler}) => theme.mixins.toolbar);
 
@@ -12,11 +16,22 @@ const SiteHeader = ({ history }) => {
   const navigate = useNavigate();
 
   const { currentUser } = useAuth()
+  const {data: user_settings, error, isLoading, isError }  = useQuery(["user_settings", currentUser.uid], getUserSettings, {cacheTime: 0, staletime: 0});
+
+  if (isLoading) {
+    return <>
+    <br/><br/><br/><Spinner />
+    </>
+  }
+
+  if (isError) {
+      return <><br/><br/><br/><h1>{error.message}</h1></>
+  }  
 
   const menuOptions = (currentUser) ? [
     { label: "Home", paths: [{label:"Home", path:"/"}] },
+    user_settings.premium_enabled ? { label: "My List", paths: [{label: "Movies", path:"/movies/my-list"}, {label:"Shows", path:"/shows/my-list"}] } : null,
     { label: "Discover", paths: [{label: "Movies", path:"/movies"}, {label:"Shows", path:"/shows"}] },
-    { label: "Favourites", paths: [{label: "Movies", path:"/movies/favourites"}, {label:"Shows", path:"/shows"}] },
     { label: "Upcoming", paths: [{label: "Movies", path:"/movies/upcoming/1"}, {label:"Shows", path:"/shows"}] },
     { label: "Account", paths: [{label:"Details", path:"/account"}, {label: "Log out", path:"/logout"}] },
   ] : [];
@@ -45,6 +60,8 @@ const SiteMenu = ({menuOptions, clickHandler}) => {
     <nav className="nav">
       <ul className="nav__menu">
         {menuOptions.map((menuOption) => {
+          if (!menuOption) 
+            return null;
           if (menuOption.paths.length === 0) {
             return null;
           } else if (menuOption.paths.length === 1) {

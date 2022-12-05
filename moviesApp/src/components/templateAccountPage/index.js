@@ -26,6 +26,9 @@ export default function AccountPageTemplate() {
         console.log(premium);
         setUserSettings({user_settings: user_settings, premium_enabled: premium});
         console.log("Submitted new settings", user_settings);
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     };
     
     return (
