@@ -4,11 +4,13 @@ import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
 import Pagination from "../../paginator";
+import { useQuery } from "react-query";
+import { getMovies } from "../api/tmdb-api";
 
 function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page_data}) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
-  const [sortByFilter, setSortByFilter] = useState("default");
+  const [sortByFilter, setSortByFilter] = useState("popularity");
   const [sortDirectionFilter, setSortDirectionFilter] = useState("asc");
   const [currentPage, setCurrentPage] = useState(page_data ? Number(page_data.page) : 1);
   const genreId = Number(genreFilter);

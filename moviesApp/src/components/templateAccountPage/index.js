@@ -1,6 +1,6 @@
 import { useAuth } from "../../contexts/authContext";
 import "../templateAuthPage/login.css";
-import { getUserSettings, setUserSettings } from "../../Database/dataAccess";
+import { getUserSettings, setUserSettings } from "../../database/dataAccess";
 import { useQuery } from "react-query";
 import Spinner from '../spinner';
 
@@ -25,9 +25,9 @@ export default function AccountPageTemplate() {
         const premium = document.getElementById("premium").checked;
         console.log(premium);
         setUserSettings({user_settings: user_settings, premium_enabled: premium});
+        console.log("Submitted new settings", user_settings);.
     };
-
-    console.log(user_settings);
+    
     return (
         <div className="app">
           <div className="login-form">

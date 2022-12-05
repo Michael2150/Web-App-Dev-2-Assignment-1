@@ -7,8 +7,8 @@ const allowedSortingCodes = [
   "revenue.desc",
   "primary_release_date.asc",
   "primary_release_date.desc",
-  "original_title.asc",
-  "original_title.desc",
+  // "original_title.asc",
+  // "original_title.desc",
   "vote_average.asc",
   "vote_average.desc",
   "vote_count.asc",
@@ -16,9 +16,15 @@ const allowedSortingCodes = [
 ]
 
 export const getMovies = (args) => {
-  const [, pagePart] = args.queryKey;
+  var [, pagePart, sorting, genre] = args.queryKey;
+  if (!sorting){
+    sorting = "popularity.desc";
+  }
+  if (!genre){
+    genre = "";	
+  }
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagePart}`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagePart}&with_genres=${genre}&sort_by=${sorting}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);

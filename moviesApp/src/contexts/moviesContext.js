@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { getUserSettings, setUserSettings } from "../database/dataAccess";
+import { useAuth } from "./authContext";
+import { useQuery } from "react-query";
 
 export const MoviesContext = React.createContext(null);
 
@@ -7,6 +10,9 @@ const MoviesContextProvider = (props) => {
   const [favouriteMovies, setFavouriteMovies] = useState( [] )
   const [favouriteShows, setFavouriteShows] = useState( [] )
   const [mustWatch, setMustWatch] = useState( [] )
+
+  const { currentUser } = useAuth();  
+  const {data: user_settings, error, isLoading, isError }  = useQuery(["user_settings", currentUser.uid], getUserSettings, {cacheTime: 0, staletime: 0});
 
   const addMovieToFavourites = (movie) => {
     let newFavourites = [...favouriteMovies];
@@ -53,14 +59,6 @@ const MoviesContextProvider = (props) => {
       (mId) => mId !== movie.id
     ) )
   };
-
-  // useEffect(() => {
-  //   updateUserSettingsInDatabase({
-  //     favourite_movies: favouriteMovies,
-  //     favourite_shows: favouriteShows,
-  //     must_watch: mustWatch,
-  //   })
-  // }, [favouriteMovies, favouriteShows, mustWatch, updateUserSettingsInDatabase])
 
   return (
     <MoviesContext.Provider

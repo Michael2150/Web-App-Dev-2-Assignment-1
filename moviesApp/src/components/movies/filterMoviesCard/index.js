@@ -41,13 +41,12 @@ export default function FilterMoviesCard(props) {
     { id: "desc", name: "Descending" },
   ];
   const sortBy = [
-    "Default",
-    "Popularity", 
-    "Release date",
-    "Revenue",
-    "Primary release date",
-    "Vote average",
-    "Vote count",
+    { id: "popularity", naem:"Popularity"}, 
+    { id: "release_date", naem:"Release date"},
+    { id: "revenue", naem:"Revenue"},
+    { id: "primary_release_date", naem:"Primary release date"},
+    { id: "vote_average", naem:"Vote average"},
+    { id: "vote_count", naem:"Vote count"},
   ]
 
   const handleChange = (e, type, value) => {
@@ -78,10 +77,10 @@ export default function FilterMoviesCard(props) {
         backgroundColor: "rgb(204, 204, 0)"
       }} 
       variant="outlined">
-      <CardContent>
+      <CardContent> 
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          Filter/Sort Movies.
         </Typography>
         <TextField
       sx={formControl}
@@ -126,12 +125,15 @@ export default function FilterMoviesCard(props) {
           >
             {sortBy.map((sort) => {
               return (
-                <MenuItem key={sort} value={sort.toLowerCase().replace(" ","_")}>
-                  {sort}
+                <MenuItem key={sort.id} value={sort.id}>
+                  {sort.name}
                 </MenuItem>
               );
             })}
           </Select>
+        </FormControl>
+
+        <FormControl sx={formControl}>
           <Select
             labelId="sort-direction-label"
             id="sort-direction-select"
