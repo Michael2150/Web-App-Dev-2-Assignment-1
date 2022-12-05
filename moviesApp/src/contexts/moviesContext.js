@@ -7,8 +7,8 @@ import Spinner from '../components/spinner';
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
-  const { currentUser } = useAuth();  
-  const {data: user_settings, error, isLoading, isError }  = useQuery(["user_settings", currentUser.uid], getUserSettings, {cacheTime: 0, staletime: 0});
+  const { currentUser } = useAuth();
+  const {data: user_settings, error, isLoading, isError }  = useQuery(["user_settings", currentUser? currentUser.uid : ""], getUserSettings, {cacheTime: 0, staletime: 0});
   const [favouriteMovies, setFavouriteMovies] = useState([]);
   const [favouriteShows, setFavouriteShows] = useState([]);
 

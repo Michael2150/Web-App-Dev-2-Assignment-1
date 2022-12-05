@@ -13,6 +13,9 @@ export function getUserSettings(args){
     const [, user_id] = args.queryKey;
     UserSettingsModel.user_id = user_id;
     return new Promise((resolve, reject) => {
+        if (user_id === "") {
+            resolve(UserSettingsModel);
+        }
         const docRef = doc(db, "user_settings", user_id);
         getDoc(docRef).then((doc) => {
             if (doc.exists()) {

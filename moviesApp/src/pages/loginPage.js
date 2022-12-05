@@ -3,7 +3,6 @@ import Login from "../components/templateAuthPage";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-
 const LoginPage = (props) => {
   //If the user is already logged in, redirect them to the home page
   const { currentUser } = getAuth();
