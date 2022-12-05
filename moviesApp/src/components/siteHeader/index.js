@@ -30,7 +30,7 @@ const SiteHeader = ({ history }) => {
 
   const menuOptions = (currentUser) ? [
     { label: "Home", paths: [{label:"Home", path:"/"}] },
-    user_settings.premium_enabled ? { label: "My List", paths: [{label: "Movies", path:"/movies/my-list"}, {label:"Shows", path:"/shows/my-list"}] } : null,
+    user_settings.premium_enabled ? { label: "My Favourites", paths: [{label: "Movies", path:"/movies/favourites"}, {label:"Shows", path:"/shows/favourites"}] } : null,
     { label: "Discover", paths: [{label: "Movies", path:"/movies"}, {label:"Shows", path:"/shows"}] },
     { label: "Upcoming", paths: [{label: "Movies", path:"/movies/upcoming/1"}, {label:"Shows", path:"/shows"}] },
     { label: "Account", paths: [{label:"Details", path:"/account"}, {label: "Log out", path:"/logout"}] },

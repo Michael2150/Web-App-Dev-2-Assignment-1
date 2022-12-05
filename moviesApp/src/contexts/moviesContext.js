@@ -2,62 +2,81 @@ import React, { useState, useEffect } from "react";
 import { getUserSettings, setUserSettings } from "../database/dataAccess";
 import { useAuth } from "./authContext";
 import { useQuery } from "react-query";
+import Spinner from '../components/spinner';
 
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
-  const [myReviews, setMyReviews] = useState( {} ) 
-  const [favouriteMovies, setFavouriteMovies] = useState( [] )
-  const [favouriteShows, setFavouriteShows] = useState( [] )
-  const [mustWatch, setMustWatch] = useState( [] )
-
   const { currentUser } = useAuth();  
   const {data: user_settings, error, isLoading, isError }  = useQuery(["user_settings", currentUser.uid], getUserSettings, {cacheTime: 0, staletime: 0});
+  const [favouriteMovies, setFavouriteMovies] = useState([]);
+  const [favouriteShows, setFavouriteShows] = useState([]);
+
+  useEffect(() => {
+    if (user_settings) {
+      setFavouriteMovies(user_settings.favourite_movies);
+      setFavouriteShows(user_settings.favourite_shows);
+    }
+  }, [user_settings]);
+
+  if (isLoading) {
+    return <>
+    <br/><br/><br/><Spinner />
+    </>
+  } else if (isError) {
+      return <><br/><br/><br/><h1>{error.message}</h1></>
+  }
 
   const addMovieToFavourites = (movie) => {
-    let newFavourites = [...favouriteMovies];
-    if (!favouriteMovies.includes(movie.id)) {
+    let newFavourites = [...user_settings.favourite_movies];
+    if (!user_settings.favourite_movies.includes(movie.id)) {
       newFavourites.push(movie.id);
     }
+    user_settings.favourite_movies = newFavourites;
+    console.log("Added movie to favourites", user_settings);
+    setUserSettings({ user_settings, favourite_movies: newFavourites });
     setFavouriteMovies(newFavourites);
   };
 
   const removeMovieFromFavourites = (movie) => {
-    setFavouriteMovies( favouriteMovies.filter(
-      (mId) => mId !== movie.id
-    ))
+    let newFavourites = [...user_settings.favourite_movies];
+    if (user_settings.favourite_movies.includes(movie.id)) {
+      newFavourites = newFavourites.filter((m) => m !== movie.id);
+    }
+    user_settings.favourite_movies = newFavourites;
+    console.log("Removed movie from favourites", user_settings);
+    setUserSettings({ user_settings, favourite_movies: newFavourites });
+    setFavouriteMovies(newFavourites);
   };
 
   const addShowToFavourites = (show) => {
-    let newFavourites = [...favouriteShows];
-    if (!favouriteShows.includes(show.id)) {
+    let newFavourites = [...user_settings.favourite_shows];
+    if (!user_settings.favourite_shows.includes(show.id)) {
       newFavourites.push(show.id);
     }
+    user_settings.favourite_shows = newFavourites;
+    console.log("Added show to favourites", user_settings);
+    setUserSettings({ user_settings, favourite_shows: newFavourites });
     setFavouriteShows(newFavourites);
   };
 
   const removeShowFromFavourites = (show) => {
-    setFavouriteShows( favouriteShows.filter(
-      (sId) => sId !== show.id
-    ))
+    let newFavourites = [...user_settings.favourite_shows];
+    if (user_settings.favourite_shows.includes(show.id)) {
+      newFavourites = newFavourites.filter((m) => m !== show.id);
+    }
+    user_settings.favourite_shows = newFavourites;
+    console.log("Removed show from favourites", user_settings);
+    setUserSettings({ user_settings, favourite_shows: newFavourites });
+    setFavouriteShows(newFavourites);
   };
 
   const addReview = (movie, review) => {
-    setMyReviews( {...myReviews, [movie.id]: review } )
-  };
-
-  const addToMustWatch = (movie) => {
-    let newMustWatch = [...mustWatch];
-    if (!mustWatch.includes(movie.id)) {
-      newMustWatch.push(movie.id);
-    }
-    setMustWatch(newMustWatch);
-  };
-
-  const removeFromMustWatch = (movie) => {
-    setMustWatch( mustWatch.filter(
-      (mId) => mId !== movie.id
-    ) )
+    let newReviews = [...user_settings.reviews];
+    newReviews.push({ movie_id: movie.id, review: review });
+    user_settings.reviews = newReviews;
+    console.log("Added review", user_settings);
+    setUserSettings({ user_settings, reviews: newReviews });
   };
 
   return (
@@ -69,11 +88,8 @@ const MoviesContextProvider = (props) => {
         shows: favouriteShows,
         addShowToFavourites,
         removeShowFromFavourites,
-        reviews: myReviews,
+        reviews: [],
         addReview,
-        mustWatch: mustWatch,
-        addToMustWatch,
-        removeFromMustWatch,
       }}
     >
       {props.children}
