@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
-import { getUpcomingMovies } from "../api/tmdb-api";
-import PageTemplate from '../components/movies/templateMovieListPage';
+import { getUpcomingMovies } from "../../api/tmdb-api";
+import PageTemplate from '../../components/movies/templateMovieListPage';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import Spinner from '../components/spinner';
-import { MoviesContext } from "../contexts/moviesContext";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
-import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
+import Spinner from '../../components/spinner';
+import { MoviesContext } from "../../contexts/moviesContext";
+import AddToFavouritesIcon from '../../components/cardIcons/addToFavourites'
+import RemoveFromFavourites from "../../components/cardIcons/removeFromFavourites";
 import { useNavigate } from "react-router-dom";
 
 const UpcomingMoviesPage = (props) => {

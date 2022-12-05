@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import PageTemplate from "../components/movies/templateMoviePage";
-import MovieReview from "../components/movies/movieReview";
+import PageTemplate from "../../components/movies/templateMoviePage";
+import MovieReview from "../../components/movies/movieReview";
 
 const MovieReviewPage = (props) => {
   let location = useLocation();

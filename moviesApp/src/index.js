@@ -3,15 +3,15 @@ import SiteHeader from './components/siteHeader'
 import {createRoot} from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
-import MoviePage from "./pages/movieDetailsPage";
-import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; 
-import MovieReviewPage from "./pages/movieReviewPage";
-import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
+import MoviePage from "./pages/movies/movieDetailsPage";
+import FavouriteMoviesPage from "./pages/movies/favouriteMoviesPage"; 
+import MovieReviewPage from "./pages/movies/movieReviewPage";
+import UpcomingMoviesPage from "./pages/movies/upcomingMoviesPage";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
-import AddMovieReviewPage from './pages/addMovieReviewPage';
+import AddMovieReviewPage from './pages/movies/addMovieReviewPage';
 import LoginPage from "./pages/loginPage";
-import MoviesListPage from "./pages/moviesListPage";
+import MoviesListPage from "./pages/movies/moviesListPage";
 import PrivateRoute from './privateRoute'
 import Contexts from "./contexts/contextWrapper";
 import SignupPage from "./pages/signupPage";
