@@ -41,12 +41,12 @@ export default function FilterMoviesCard(props) {
     { id: "desc", name: "Descending" },
   ];
   const sortBy = [
-    { id: "popularity", naem:"Popularity"}, 
-    { id: "release_date", naem:"Release date"},
-    { id: "revenue", naem:"Revenue"},
-    { id: "primary_release_date", naem:"Primary release date"},
-    { id: "vote_average", naem:"Vote average"},
-    { id: "vote_count", naem:"Vote count"},
+    { id: "popularity", name:"Popularity"}, 
+    { id: "release_date", name:"Release date"},
+    { id: "revenue", name:"Revenue"},
+    { id: "primary_release_date", name:"Primary release date"},
+    { id: "vote_average", name:"Vote average"},
+    { id: "vote_count", name:"Vote count"},
   ]
 
   const handleChange = (e, type, value) => {
