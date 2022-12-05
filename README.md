@@ -1,111 +1,106 @@
-<h1 align="center">Welcome to Web App Development CA1 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-</p>
-
-## Install
-
-```sh
-(npm install)
-```
-
-## Usage
-
-```sh
-npm run start
-```
-
-## Author
-
-👤 **Michael Gerber**
-
-* Github: [@Michael2150](https://github.com/Michael2150)
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
-
 # Web App Dev 2 - Assignment 1 - ReactJS app.
 
-Name: [your name]
+Name: Michael Gerber (20093265) [@Michael2150](https://github.com/Michael2150)
 
 ## Overview.
 
 ### New Pages.
 
-[ Provide a bullet-point list of the new pages you added to the Movies Fan add (include modifications to existing pages).]
-
-e.g.
-
-+ List of Trending movies.
-+ (Modified) Movie Details page - added chips for .....
-+ List of Actors.
-+ etc
++ (Modified) List pages, added pagination component to page throught the results and an extender filter/sort component to sort the results
++ (Modified) Home page, shows a list of popular movies/tv-shows.
++ List of tv-shows page
++ Tv-show details page
++ Tv-show favourites page
++ Tv-show reviews form page
++ Login page 
++ Logout page
++ Sign up page
++ Account page
 
 ### New Features.
 
-[ Provide a bullet-point list of the __new features__ you added to the Movies Fan app.] 
- 
- e.g.
-
-+ Authentication (using Firebase)
-+ Create a fantasy movie (Basic)
-+ Sort movie list by release date (e.g. the Discover Movies page)
-+ etc
++ Login & Sign up authentication, using Firebase.
++ The favourites for each user is being saved per user, using Firestore.
++ Users that have "premium" features enabled will be able to view their liked movies/tv-shows.
++ All the functionality added for movies has been duplicated for tv shows as well.
++ List pages can be paged through to view more movies/tv-shows.
 
 ## Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
+Make sure to navigate to the /MoviesApp folder in the repo and then run the following commands to setup and start the project.
+
+### Install
+```sh
+(npm install)
+```
+### Usage
+```sh
+npm run start
+```
 
 ## TMDB endpoints.
-
-[ List the __additional__ TMDB endpoints used, giving the description and pathname for each one.] 
-
-e.g.
-
-+ /movies/{movie_id}/reviews - The user reviews or a movie.
-+ /movie/{movie_id}/similar - A list of similar movies. 
-+ /person/popular - A list of popular actors.
-+ /tv/{tv_id}/videos - The videos for a TV show. 
++ /tv/{show_id}
++ /genre/tv/list
++ /tv/{show_id}/images
++ /tv/{show_id}/revies
++ /tv/on_the_air
++ /tv/popular
 
 ## App Design.
 
 ### Component catalogue.
++ I created a new dropdown menu for the site header.
 
-[ Insert a screenshot from the Storybook UI, and highlight the stories that relate to your __new/modified components__ - see the example screenshot below.] .......
+![image](https://user-images.githubusercontent.com/52236517/205690912-445872e7-d48d-4cb9-9c1d-f03c9461908d.png)
 
-e.g.
++ I created a pagination component to page through the list of movies/tv-shows.
+ 
+![image](https://user-images.githubusercontent.com/52236517/205691228-130add84-eb36-4cb7-8568-8a15f89418b7.png)
 
-![](./images/stories.png)
++ I extended the filter card, to add sorting functionality.
+ 
+![image](https://user-images.githubusercontent.com/52236517/205691813-94cf5b70-e1d9-480c-89bf-b8e260ee1fc2.png)
 
 ### UI Design.
-
-[ Insert screenshots of the __new app pages__ you developed (including modified existing pages), Have an appropriate caption for each one (see example below).
-
-![ ](./images/detail.png)
-
->Shows detailed information on a movie. Clicking the 'Reviews' floating action button will display extracts from critic reviews.
-
-![ ](./images/review.png)
-
->Shows the full review for a movie.
++(Modified) Home page, zoomed out to view the horizontal scrollviews showing the popular movies and tv-shows.
+![image](https://user-images.githubusercontent.com/52236517/205692110-48f97e0d-76a5-447c-bd35-a9ac7927b322.png)
++(Modified) List pages, the pagination component on the top and the modified filter card on the left
+![image](https://user-images.githubusercontent.com/52236517/205692783-15fcd374-46fa-49dd-b19f-b31a85d4cbe7.png)
++ New list of tv-shows page
+![image](https://user-images.githubusercontent.com/52236517/205692839-739fcf7b-0fa4-4c8c-b2de-a29088482497.png)
++ Tv-show details page
+![image](https://user-images.githubusercontent.com/52236517/205692918-97805fcb-49a9-4f4d-8644-29ba01094fa3.png)
++ Tv-show favourites page
+![image](https://user-images.githubusercontent.com/52236517/205693039-8f9e7795-531d-4922-93c5-c02c815d7cd4.png)
++ Login page 
+![image](https://user-images.githubusercontent.com/52236517/205693124-585119de-e90a-4d49-a1c6-8bd1a38db026.png)
++ Logout page
+![image](https://user-images.githubusercontent.com/52236517/205693098-7eba9e60-f793-4ab9-a704-0d942bd52196.png)
++ Sign up page
+![image](https://user-images.githubusercontent.com/52236517/205693178-8cfa5273-c751-4c76-8528-9929136ff8b2.png)
++ Account page
+![image](https://user-images.githubusercontent.com/52236517/205693241-6556d68f-b523-44db-b21a-3365d77c36d7.png)
 
 ### Routing.
++ (Private) / - This a new home page that displays some popular movies and tv shows.
++ (Public) /login - User login page.
++ (Public) /sign-up - User sign up page.
++ (Private) /account - Page that shows the user details.
++ (Public) /logout - An endpoint that logs the user out and shows a logged out message.
 
-[ List the __new routes__ supported by your app and state the associated page.]
++ (Private) /movies/{page} - discovery page for movies, it can be paged through.
++ (Private) /movie/{movie_id} - details page for the movie specified.
++ (Public & Premium) /movies/favourites - user's favourites page for the movies.
++ (Private) /movies/upcoming/{page} - page that displays upcoming movies, it can be paged through.
++ (Private) /movies/reviews/form - shows a review form for a movie.
++ (Private) /movies/reviews/{review_id} - shows the reviews for a movie.
 
-e.g. 
-
-+ /actors - displays a list of popular actors.
-+ /actors/:id - shows details about a particular actor.
-+ /actors/:id/movies (protected) - an actor's movie credits.
-+ etc.
-
-[If relevant, state what aspects of your app are protected/private (i.e. require authentication) and what is public.]
++ (Private) /shows/{page} - discovery page for tv-shows, it can be paged through.
++ (Private) /show/{show_id} - details page for the tv-show specified.
++ (Public & Premium) /shows/favourites - user's favourites page for the tv-shows.
++ (Private) /shows/upcoming/{page} - page that displays upcoming tv-shows, it can be paged through.
++ (Private) /shows/reviews/form - shows a review form for a tv-show.
++ (Private) /shows/reviews/{review_id} - shows the revies for a tv-show.
 
 ## Independent learning (If relevant).
-
-[ Itemize the technologies/techniques you researched independently and adopted in your project, i.e. aspects not covered in the lectures/labs. Mention the source code filenames that illustrate these  (code excerpts are not required) and provide references to the online resources that helped you (articles/blogs).
+I used the <a href="https://firebase.google.com/docs?authuser=0&hl=en">Firebase Documentation</a> to navigate the firebase classes and method and learned to initialise and utilise the services they provide.
