@@ -24,6 +24,8 @@ const chip = { margin: 0.5 };
 const ShowDetails = ({ show }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  console.log(show);
+
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -48,16 +50,21 @@ const ShowDetails = ({ show }) => {
         ))}
       </Paper>
       <Paper component="ul" sx={root}>
-        <Chip icon={<AccessTimeIcon />} label={`${show.runtime} min.`} />
-        <Chip
-          icon={<MonetizationIcon />}
-          label={`${show.revenue.toLocaleString()}`}
-        />
         <Chip
           icon={<StarRate />}
           label={`${show.vote_average} (${show.vote_count}`}
         />
-        <Chip label={`Released: ${show.release_date}`} />
+        <Chip label={`In Production: ${show.in_production? "Yes" : "No"}`} />
+      </Paper>
+      <Paper component="ul" sx={root}>
+        <li>
+          <Chip label="Seasons" sx={chip} color="primary" />
+        </li>
+        {show.seasons.map((s) => (
+          <li key={s.id}>
+            <Chip label={s.name} sx={chip} />
+          </li>
+        ))}
       </Paper>
       <Paper 
         component="ul" 

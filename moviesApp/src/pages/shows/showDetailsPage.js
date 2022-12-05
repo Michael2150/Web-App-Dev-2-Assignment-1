@@ -11,8 +11,7 @@ const ShowDetailsPage = (props) => {
   const { id } = useParams();
 
   const { data: show, error, isLoading, isError } = useQuery(
-    ["show", { id: id }],
-    getShow
+    ["show", { id: id }], getShow
   );
 
   if (isLoading) {

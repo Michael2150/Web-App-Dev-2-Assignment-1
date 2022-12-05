@@ -9,14 +9,14 @@ import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-const MovieHeader = (props) => {
-  const movie = props.movie;
+const ShowHeader = (props) => {
+  const show = props.show;
   const navigate = useNavigate();
   
   const favouriteMovies = JSON.parse(localStorage.getItem("favourites"));
   let fav;
   favouriteMovies.forEach(element => {
-    (element.id === movie.id) ? (fav = true) : (fav = false);
+    (element.id === show.id) ? (fav = true) : (fav = false);
   });  
 
   return (
@@ -37,15 +37,15 @@ const MovieHeader = (props) => {
       }
 
       <Typography variant="h4" component="h3">
-        {movie.name}
-        <a href={movie.homepage}>
+        {show.name}
+        <a href={show.homepage}>
           <HomeIcon color="primary" />
         </a>
         <br />
-        <span sx={{ fontSize: "1.5rem" }}>{`   "${movie.tagline}"`} </span>
+        <span sx={{ fontSize: "1.5rem" }}>{`   "${show.tagline}"`} </span>
       </Typography>
     </Paper>
   );
 };
 
-export default MovieHeader;
+export default ShowHeader;
