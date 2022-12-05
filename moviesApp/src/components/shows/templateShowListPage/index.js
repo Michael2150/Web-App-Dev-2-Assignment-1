@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Header from "../headerMovieList";
-import FilterCard from "../filterMoviesCard";
-import MovieList from "../movieList";
+import Header from "../headerShowList";
+import FilterCard from "../filterShowsCard";
+import ShowList from "../showList";
 import Grid from "@mui/material/Grid";
 import Pagination from "../../paginator";
 
-function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page_data}) {
+function ShowListPageTemplate({ shows, title, action: favourite_show_action, page_data}) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [sortByFilter, setSortByFilter] = useState("popularity");
@@ -13,7 +13,7 @@ function MovieListPageTemplate({ movies, title, action: favourite_movie_action, 
   const [currentPage, setCurrentPage] = useState(page_data ? Number(page_data.page) : 1);
   const genreId = Number(genreFilter);
   
-  const filteredMovies = movies
+  const filteredShows = shows
     .filter((m) => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
@@ -86,7 +86,7 @@ function MovieListPageTemplate({ movies, title, action: favourite_movie_action, 
             sortDirectionFilter={sortDirectionFilter}
           />
         </Grid>
-        <MovieList action={favourite_movie_action} movies={filteredMovies}></MovieList>
+        <ShowList action={favourite_show_action} shows={filteredShows}></ShowList>
       </Grid>
       {
         page_data &&
@@ -98,4 +98,4 @@ function MovieListPageTemplate({ movies, title, action: favourite_movie_action, 
     </>
   );
 }
-export default MovieListPageTemplate;
+export default ShowListPageTemplate;

@@ -13,27 +13,27 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import img from '../../../images/film-poster-placeholder.png'
 import Avatar from '@mui/material/Avatar';
-import { MoviesContext } from "../../../contexts/moviesContext";
+import { ShowsContext } from "../../../contexts/showsContext";
 
-export default function MovieCard({ movie, action }) {
-  const { favourites, addToFavourites } = useContext(MoviesContext);
+export default function ShowCard({ show, action }) {
+  const { favourites, addToFavourites } = useContext(ShowsContext);
  
-   if (favourites.find((id) => id === movie.id)) {
-     movie.favourite = true;
+   if (favourites.find((id) => id === show.id)) {
+     show.favourite = true;
    } else {
-     movie.favourite = false
+     show.favourite = false
    }
  
    const handleAddToFavourite = (e) => {
      e.preventDefault();
-     addToFavourites(movie);
+     addToFavourites(show);
    };
 
   return (
     <Card sx={{ maxWidth: 350 }}>
       <CardHeader
         avatar={
-          movie.favourite ? (
+          show.favourite ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
             </Avatar>
@@ -41,15 +41,15 @@ export default function MovieCard({ movie, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {show.title}{" "}
           </Typography>
         }
       />
       <CardMedia
         sx={{ height: 500 }}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          show.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${show.poster_path}`
             : img
         }
       />
@@ -58,20 +58,20 @@ export default function MovieCard({ movie, action }) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {show.release_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {show.vote_average}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {action(movie)}
-        <Link to={`/movie/${movie.id}`}>
+        {action(show)}
+        <Link to={`/show/${show.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>

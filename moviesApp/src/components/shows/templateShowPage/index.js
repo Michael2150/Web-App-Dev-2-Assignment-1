@@ -1,16 +1,16 @@
 import React from "react";
-import MovieHeader from "../headerMovie";
+import ShowHeader from "../headerShow";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getMovieImages } from "../../../api/tmdb-api";
+import { getShowImages } from "../../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../../spinner'
 
-const TemplateMoviePage = ({ movie, children }) => {
+const TemplateShowPage = ({ show, children }) => {
   const { data , error, isLoading, isError } = useQuery(
-    ["images", { id: movie.id }],
-    getMovieImages
+    ["images", { id: show.id }],
+    getShowImages
   );
 
   if (isLoading) {
@@ -24,7 +24,7 @@ const TemplateMoviePage = ({ movie, children }) => {
 
   return (
     <>
-      <MovieHeader movie={movie} />
+      <ShowHeader show={show} />
 
       <Grid container spacing={5} sx={{ padding: "15px" }}>
         <Grid item xs={3}>
@@ -55,4 +55,4 @@ const TemplateMoviePage = ({ movie, children }) => {
   );
 };
 
-export default TemplateMoviePage;
+export default TemplateShowPage;
