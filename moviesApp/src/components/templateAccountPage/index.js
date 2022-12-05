@@ -25,7 +25,7 @@ export default function AccountPageTemplate() {
         const premium = document.getElementById("premium").checked;
         console.log(premium);
         setUserSettings({user_settings: user_settings, premium_enabled: premium});
-        console.log("Submitted new settings", user_settings);.
+        console.log("Submitted new settings", user_settings);
     };
     
     return (

@@ -4,16 +4,50 @@ import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
 import Pagination from "../../paginator";
-import { useQuery } from "react-query";
-import { getMovies } from "../api/tmdb-api";
 
 function MovieListPageTemplate({ movies, title, action: favourite_movie_action, page_data}) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [sortByFilter, setSortByFilter] = useState("popularity");
-  const [sortDirectionFilter, setSortDirectionFilter] = useState("asc");
+  const [sortDirectionFilter, setSortDirectionFilter] = useState("desc");
   const [currentPage, setCurrentPage] = useState(page_data ? Number(page_data.page) : 1);
   const genreId = Number(genreFilter);
+  
+  const filteredMovies = movies
+    .filter((m) => {
+      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
+    })
+    .filter((m) => {
+      return genreId > 0 ? m.genre_ids.includes(Number(genreFilter)) : true;
+    })
+    .sort((a, b) => {
+      if (sortByFilter === "vote_average") {
+        return sortDirectionFilter === "asc"
+          ? a.vote_average - b.vote_average
+          : b.vote_average - a.vote_average;
+      } else if (sortByFilter === "vote_count") {
+        return sortDirectionFilter === "asc"
+          ? a.vote_count - b.vote_count
+          : b.vote_count - a.vote_count;
+      } else if (sortByFilter === "release_date") {
+        return sortDirectionFilter === "asc"
+          ? a.release_date - b.release_date
+          : b.release_date - a.release_date;
+      } else if (sortByFilter === "revenue") {
+        return sortDirectionFilter === "asc"
+          ? a.revenue - b.revenue
+          : b.revenue - a.revenue;
+      } else if (sortByFilter === "primary_release_date") {
+        return sortDirectionFilter === "asc"
+          ? a.primary_release_date - b.primary_release_date
+          : b.primary_release_date - a.primary_release_date;
+      } else {
+        return sortDirectionFilter === "asc"
+          ? a.popularity - b.popularity
+          : b.popularity - a.popularity;
+      }
+    });
+
 
   const handleChange = (type, value) => {
     if (type === "name") {
@@ -52,7 +86,7 @@ function MovieListPageTemplate({ movies, title, action: favourite_movie_action, 
             sortDirectionFilter={sortDirectionFilter}
           />
         </Grid>
-        <MovieList action={favourite_movie_action} movies={movies}></MovieList>
+        <MovieList action={favourite_movie_action} movies={filteredMovies}></MovieList>
       </Grid>
       {
         page_data &&
