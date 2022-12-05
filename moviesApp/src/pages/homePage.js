@@ -9,7 +9,7 @@ import WriteReview from "../components/cardIcons/writeReview";
 import { MoviesContext } from "../contexts/moviesContext";
 
 const HomePage = (props) => {
-  const {favourites: movieIds } = useContext(MoviesContext);
+  const {favourites: movieIds, favouriteShows } = useContext(MoviesContext);
   const {data: movies_data, error: movies_error, isLoading: movies_isLoading, isError: movies_isError }  = useQuery(["PopularMovies"], getPopularMovies);
   const {data: shows_data, error: shows_error, isLoading: shows_isLoading, isError: shows_isError }  = useQuery(["PopularShows"], getPopularShows);
 
@@ -44,7 +44,18 @@ const HomePage = (props) => {
           </>
         );
       }}
-      shows_action={shows_action}
+      shows_action={(show) => {
+        return (
+          <>
+            {favouriteShows.includes(show.id) ? (
+              <RemoveFromFavourites show={show} />
+            ) : (
+              <AddToFavouritesIcon show={show} />
+            )}
+            <WriteReview show={show} />
+          </>
+        );
+      }}
     />
   );
 };

@@ -47,7 +47,7 @@ function HomePageTemplate({title,
       <HorzView movies={popular_movies} action={movies_action}/>
       <br/>
       {Heading("Popular TV-Shows", "/shows")}
-      <HorzView movies={popular_shows} action={shows_action}/>
+      <HorzView shows={popular_shows} action={shows_action}/>
       <br/>
       <br/>
     </>

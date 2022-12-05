@@ -8,7 +8,7 @@ import RemoveFromFavourites from "../../components/cardIcons/removeFromFavourite
 import WriteReview from "../../components/cardIcons/writeReview";
 
 const FavouriteShowsPage = () => {
-  const {favourites: showIds } = useContext(MoviesContext);
+  const {favouriteShows: showIds } = useContext(MoviesContext);
   console.log(showIds);
 
   // Create an array of queries and run in parallel.
