@@ -7,11 +7,11 @@ import Spinner from '../../components/spinner';
 import AddToFavouritesIcon from '../../components/cardIcons/addToFavourites'
 import RemoveFromFavourites from "../../components/cardIcons/removeFromFavourites";
 import WriteReview from "../../components/cardIcons/writeReview";
-import { ShowsContext } from "../../contexts/showsContext";
+import { MoviesContext } from "../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
 
 const ShowsListPage = (props) => {
-  const {favourites: showIds } = useContext(ShowsContext);
+  const {favourites: showIds } = useContext(MoviesContext);
   const { page } = useParams();
   const {data, error, isLoading, isError }  = useQuery(["shows", page], getShows);
   const navigate = useNavigate();

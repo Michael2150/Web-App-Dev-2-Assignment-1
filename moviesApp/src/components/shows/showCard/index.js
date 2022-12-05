@@ -13,10 +13,10 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import img from '../../../images/film-poster-placeholder.png'
 import Avatar from '@mui/material/Avatar';
-import { ShowsContext } from "../../../contexts/showsContext";
+import { MoviesContext } from "../../../contexts/moviesContext";
 
 export default function ShowCard({ show, action }) {
-  const { favourites, addToFavourites } = useContext(ShowsContext);
+  const { favourites, addToFavourites } = useContext(MoviesContext);
  
    if (favourites.find((id) => id === show.id)) {
      show.favourite = true;

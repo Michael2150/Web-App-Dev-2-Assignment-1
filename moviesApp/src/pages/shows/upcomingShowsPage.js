@@ -4,7 +4,7 @@ import PageTemplate from '../../components/shows/templateShowListPage';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Spinner from '../../components/spinner';
-import { ShowsContext } from "../../contexts/showsContext";
+import { MoviesContext } from "../../contexts/moviesContext";
 import AddToFavouritesIcon from '../../components/cardIcons/addToFavourites'
 import RemoveFromFavourites from "../../components/cardIcons/removeFromFavourites";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const UpcomingShowsPage = (props) => {
   const { page } = useParams();
   const { data, error, isLoading, isError }  = useQuery(['upcoming_shows', page], getUpcomingShows)
-  const {favourites: showIds } = useContext(ShowsContext);
+  const {favourites: showIds } = useContext(MoviesContext);
   const navigate = useNavigate();
 
   if (isLoading) {

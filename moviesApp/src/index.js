@@ -21,10 +21,10 @@ import MoviesListPage from "./pages/movies/moviesListPage";
 
 import AddShowReviewPage from './pages/shows/addShowReviewPage';
 import ShowPage from "./pages/shows/showDetailsPage";
-import FavouriteShowsPage from "./pages/shows/favouriteShowsPage";
+import FavouriteShowsPage from "./pages/shows/favouriteShowPage";
 import ShowReviewPage from "./pages/shows/showReviewPage";
 import UpcomingShowsPage from "./pages/shows/upcomingShowsPage";
-import ShowsListPage from "./pages/shows/showsListPage";
+import ShowsListPage from "./pages/shows/showListPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PageTemplate from "../../components/shows/templateShowListPage";
-import { ShowsContext } from "../../contexts/showsContext";
+import { MoviesContext } from "../../contexts/moviesContext";
 import { useQueries } from "react-query";
 import { getShow } from "../../api/tmdb-api";
 import Spinner from '../../components/spinner'
@@ -8,7 +8,7 @@ import RemoveFromFavourites from "../../components/cardIcons/removeFromFavourite
 import WriteReview from "../../components/cardIcons/writeReview";
 
 const FavouriteShowsPage = () => {
-  const {favourites: showIds } = useContext(ShowsContext);
+  const {favourites: showIds } = useContext(MoviesContext);
   console.log(showIds);
 
   // Create an array of queries and run in parallel.
