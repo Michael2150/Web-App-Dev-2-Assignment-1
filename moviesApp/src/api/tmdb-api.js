@@ -134,7 +134,7 @@ export const getShows = (args) => {
     genre = "";
   }
   return fetch(
-    `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagePart}&with_genres=${genre}&sort_by=${sorting}`
+    `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-uk&page=${pagePart}&with_genres=${genre}&sort_by=${sorting}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);

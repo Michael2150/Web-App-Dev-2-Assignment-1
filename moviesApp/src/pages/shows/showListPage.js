@@ -11,7 +11,7 @@ import { MoviesContext } from "../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
 
 const ShowsListPage = (props) => {
-  const {favourites: showIds } = useContext(MoviesContext);
+  const {favouriteShows: showIds } = useContext(MoviesContext);
   const { page } = useParams();
   const {data, error, isLoading, isError }  = useQuery(["shows", page], getShows);
   const navigate = useNavigate();

@@ -15,7 +15,7 @@ function ShowListPageTemplate({ shows, title, action: favourite_show_action, pag
   
   const filteredShows = shows
     .filter((m) => {
-      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
+      return m.name.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(Number(genreFilter)) : true;

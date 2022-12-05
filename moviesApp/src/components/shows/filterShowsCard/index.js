@@ -10,7 +10,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '../../../images/pexels-dziana-hasanbekava-5480827.jpg';
-import { getMoviesGenres } from "../../../api/tmdb-api";
+import { getShowsGenres } from "../../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../../spinner'
 
@@ -22,7 +22,7 @@ const formControl =
   };
 
 export default function FilterShowsCard(props) {
-  const { data, error, isLoading, isError } = useQuery("genres", getMoviesGenres);
+  const { data, error, isLoading, isError } = useQuery("genres", getShowsGenres);
 
   if (isLoading) {
     return <Spinner />;
@@ -42,9 +42,6 @@ export default function FilterShowsCard(props) {
   ];
   const sortBy = [
     { id: "popularity", name:"Popularity"}, 
-    { id: "release_date", name:"Release date"},
-    { id: "revenue", name:"Revenue"},
-    { id: "primary_release_date", name:"Primary release date"},
     { id: "vote_average", name:"Vote average"},
     { id: "vote_count", name:"Vote count"},
   ]

@@ -33,18 +33,16 @@ const MoviesContextProvider = (props) => {
       newFavourites.push(movie.id);
     }
     user_settings.favourite_movies = newFavourites;
-    console.log("Added movie to favourites", user_settings);
     setUserSettings({ user_settings, favourite_movies: newFavourites });
     setFavouriteMovies(newFavourites);
   };
 
   const removeMovieFromFavourites = (movie) => {
     let newFavourites = [...user_settings.favourite_movies];
-    if (user_settings.favourite_movies.includes(movie.id)) {
-      newFavourites = newFavourites.filter((m) => m !== movie.id);
+    if (user_settings.favourite_movies.includes(movie)) {
+      newFavourites = newFavourites.filter((m) => m !== movie);
     }
     user_settings.favourite_movies = newFavourites;
-    console.log("Removed movie from favourites", user_settings);
     setUserSettings({ user_settings, favourite_movies: newFavourites });
     setFavouriteMovies(newFavourites);
   };
@@ -55,20 +53,20 @@ const MoviesContextProvider = (props) => {
       newFavourites.push(show.id);
     }
     user_settings.favourite_shows = newFavourites;
-    console.log("Added show to favourites", user_settings);
     setUserSettings({ user_settings, favourite_shows: newFavourites });
     setFavouriteShows(newFavourites);
   };
 
   const removeShowFromFavourites = (show) => {
+    console.log("Removing show from favourites", show);
     let newFavourites = [...user_settings.favourite_shows];
-    if (user_settings.favourite_shows.includes(show.id)) {
-      newFavourites = newFavourites.filter((m) => m !== show.id);
+    if (user_settings.favourite_shows.includes(show)) {
+      newFavourites = newFavourites.filter((m) => m !== show);
     }
     user_settings.favourite_shows = newFavourites;
-    console.log("Removed show from favourites", user_settings);
     setUserSettings({ user_settings, favourite_shows: newFavourites });
     setFavouriteShows(newFavourites);
+    console.log("Removed show from favourites", user_settings);
   };
 
   const addReview = (movie, review) => {
@@ -85,7 +83,7 @@ const MoviesContextProvider = (props) => {
         favourites: favouriteMovies,
         addToFavourites: addMovieToFavourites,
         removeFromFavourites: removeMovieFromFavourites,
-        shows: favouriteShows,
+        favouriteShows,
         addShowToFavourites,
         removeShowFromFavourites,
         reviews: [],

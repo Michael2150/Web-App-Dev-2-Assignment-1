@@ -16,19 +16,14 @@ import Avatar from '@mui/material/Avatar';
 import { MoviesContext } from "../../../contexts/moviesContext";
 
 export default function ShowCard({ show, action }) {
-  const { favourites, addToFavourites } = useContext(MoviesContext);
- 
-   if (favourites.find((id) => id === show.id)) {
+  const { favouriteShows } = useContext(MoviesContext);
+
+   if (favouriteShows.find((id) => id === show.id)) {
      show.favourite = true;
    } else {
      show.favourite = false
    }
  
-   const handleAddToFavourite = (e) => {
-     e.preventDefault();
-     addToFavourites(show);
-   };
-
   return (
     <Card sx={{ maxWidth: 350 }}>
       <CardHeader
@@ -41,7 +36,7 @@ export default function ShowCard({ show, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {show.title}{" "}
+            {show.name}{" "}
           </Typography>
         }
       />
@@ -58,7 +53,7 @@ export default function ShowCard({ show, action }) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {show.release_date}
+              {show.first_air_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
